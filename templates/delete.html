@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flask and Jinja2 Example</title>
+</head>
+<body>
+    <h1>メール送信アプリ ユーザー削除</h1>
+    <h2>登録情報の詳細です</h2>
+    <ul>
+        {% for email  in allEmail %}
+            <li>ID: {{ email.id }}, Address: {{ email.address }}</li>
+        {% endfor %}
+    </ul>
+    <h2>メールアドレス削除</h2>
+
+    <form action="/delete" method="POST">
+        {% for email  in allEmail %}
+        <div>
+            <label for="email_{{ email.id }}">{{ email.address }}</label>
+            <input type="radio" id="email_{{ email.id }}" name="selected_email" value="{{ email.address }}">
+        </div>
+        {% endfor %}
+        <button type="submit">削除</button>
+	</form>
+</body>
+</html>
