@@ -9,6 +9,15 @@ class Email(db.Model):
    id = db.Column(db.Integer, primary_key=True)
    address = db.Column(db.String(100), unique=True, nullable=False)
 
+class Group(db.Model):
+   id = db.Column(db.Integer, primary_key=True)
+   name = db.Column(db.String(100), unique=True, nullable=False)
+
+class EmailGroup(db.Model):
+   id = db.Column(db.Integer, primary_key=True)
+   address_id = db.Column(db.Integer, nullable=False)
+   gorup_id = db.Column(db.Integer, nullable=False)
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
    if request.method == 'POST':
@@ -18,6 +27,7 @@ def index():
            db.session.add(new_email)
            db.session.commit()
    emails = Email.query.all()
+   print(emails)
    return render_template('index.html', emails=emails)
 
 @app.route('/delete', methods=['GET', 'POST'])
@@ -29,15 +39,8 @@ def delete():
          if email_to_delete:
             db.session.delete(email_to_delete)
             db.session.commit()
-            flash(f'Successfully deleted email: {selected_email}', 'success')
-         else:
-            flash(f'Email not found: {selected_email}', 'error')
-      else:
-         flash('No email selected for deletion', 'error')
-  
    allEmail = Email.query.all()
    return render_template('delete.html', allEmail=allEmail)
-
 
 if __name__ == '__main__':
    with app.app_context():

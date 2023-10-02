@@ -7,15 +7,25 @@
 <body>
     <h1>メールアドレス一覧</h1>
     <form method="POST">
-        <input type="email" name="email" placeholder="Enter email address" required>
+        <input type="email" name="email" placeholder="メールアドレス入力" required>
         <button type="submit">登録</button>
     </form>
+    <h1>送信グループ作成</h1>
+    <form method="POST">
+        {% for email  in emails %}
+        <div>
+            <label for="email_{{ emails.id }}">{{ email.address }}</label>
+            <input type="checkbox" id="email_{{ email.id }}" name="selected_email" value="{{ email.address }}">
+        </div>
+        {% endfor %}
+	</form>
+
     <a href="/delete">メールアドレス消去ページへ</a>
-    <h2>Registered Emails:</h2>
+    <!-- <h2>Registered Emails:</h2>
     <ul>
         {% for email in emails %}
         <li>{{ email.address }}</li>
         {% endfor %}
-    </ul>
+    </ul> -->
 </body>
 </html>
