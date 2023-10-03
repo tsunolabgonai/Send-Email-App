@@ -5,12 +5,12 @@
     <title>Email Registration</title>
 </head>
 <body>
-    <h1>メールアドレス一覧</h1>
+    <h1>メールアドレス登録</h1>
     <form method="POST">
         <input type="email" name="email" placeholder="メールアドレス入力" required>
         <button type="submit">登録</button>
     </form>
-    <h1>送信グループ作成</h1>
+    <h1>メールアドレス作成</h1>
     <form method="POST">
         {% for email  in emails %}
         <div>
@@ -20,12 +20,23 @@
         {% endfor %}
 	</form>
 
+    <h1>送信グループ作成</h1>
+    <form method="POST" action="/group">
+        <input name="group" placeholder="送信グループ" required>
+        <button type="submit">登録</button>
+    </form>
+    <ul>
+        {% for group in groups %}
+        <li>{{ group.name }}</li>
+        {% endfor %}
+    </ul>
+
     <a href="/delete">メールアドレス消去ページへ</a>
-    <!-- <h2>Registered Emails:</h2>
+    <h2>登録しているメールアドレス</h2>
     <ul>
         {% for email in emails %}
         <li>{{ email.address }}</li>
         {% endfor %}
-    </ul> -->
+    </ul>
 </body>
 </html>

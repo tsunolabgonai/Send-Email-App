@@ -21,14 +21,26 @@ class EmailGroup(db.Model):
 @app.route('/', methods=['GET', 'POST'])
 def index():
    if request.method == 'POST':
-       email_address = request.form['email']
-       if email_address:
-           new_email = Email(address=email_address)
-           db.session.add(new_email)
-           db.session.commit()
+      email_address = request.form['email']
+      if email_address:
+         new_email = Email(address=email_address)
+         db.session.add(new_email)
+         db.session.commit()
    emails = Email.query.all()
-   print(emails)
-   return render_template('index.html', emails=emails)
+   groups = Group.query.all()
+   return render_template('index.html', emails=emails, groups=groups)
+
+@app.route('/group', methods=['POST'])
+def group_add():
+   if request.method == 'POST':
+      group = request.form['group']
+      if group:
+         new_group = Group(name=group)
+         db.session.add(new_group)
+         db.session.commit()
+   emails = Email.query.all()
+   groups = Group.query.all()
+   return render_template('index.html', emails=emails, groups=groups)
 
 @app.route('/delete', methods=['GET', 'POST'])
 def delete():
