@@ -18,8 +18,14 @@ class EmailGroup(db.Model):
    address_id = db.Column(db.Integer, nullable=False)
    gorup_id = db.Column(db.Integer, nullable=False)
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET'])
 def index():
+   emails = Email.query.all()
+   groups = Group.query.all()
+   return render_template('index.html', emails=emails, groups=groups)
+
+@app.route('/email', methods=['POST'])
+def email():
    if request.method == 'POST':
       email_address = request.form['email']
       if email_address:
@@ -41,6 +47,11 @@ def group_add():
    emails = Email.query.all()
    groups = Group.query.all()
    return render_template('index.html', emails=emails, groups=groups)
+
+@app.route('/input_email_group', methods=['POST'])
+def put_email_in_group ():
+   
+   
 
 @app.route('/delete', methods=['GET', 'POST'])
 def delete():

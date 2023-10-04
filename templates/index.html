@@ -10,16 +10,12 @@
         <input type="email" name="email" placeholder="メールアドレス入力" required>
         <button type="submit">登録</button>
     </form>
-    <h1>メールアドレス作成</h1>
-    <form method="POST">
-        {% for email  in emails %}
-        <div>
-            <label for="email_{{ emails.id }}">{{ email.address }}</label>
-            <input type="checkbox" id="email_{{ email.id }}" name="selected_email" value="{{ email.address }}">
-        </div>
+    <h2>登録しているメールアドレス</h2>
+    <ul>
+        {% for email in emails %}
+        <li>{{ email.address }}</li>
         {% endfor %}
-	</form>
-
+    </ul>
     <h1>送信グループ作成</h1>
     <form method="POST" action="/group">
         <input name="group" placeholder="送信グループ" required>
@@ -32,11 +28,20 @@
     </ul>
 
     <a href="/delete">メールアドレス消去ページへ</a>
-    <h2>登録しているメールアドレス</h2>
-    <ul>
-        {% for email in emails %}
-        <li>{{ email.address }}</li>
+    <h1>メールアドレス作成</h1>
+    <form method="POST" action="/input_email_group">
+        {% for group in groups %}
+        <div>
+            <label for="group_{{ group.id }}">{{ group.name }}</label>
+            <input type="radio" id="group_{{ group.id }}" name="selected_group" value="{{ group.name }}">
+        </div>
         {% endfor %}
-    </ul>
+        {% for email  in emails %}
+        <div>
+            <label for="email_{{ emails.id }}">{{ email.address }}</label>
+            <input type="checkbox" id="email_{{ email.id }}" name="selected_email" value="{{ email.address }}">
+        </div>
+        {% endfor %}
+	</form>
 </body>
 </html>
